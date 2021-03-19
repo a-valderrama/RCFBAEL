@@ -1,0 +1,13 @@
+;;Pruebas de uncurry
+(uncurry (parser-L10 '(lambda ([x Int]) (lambda ([y Int]) (primapp + x y)))))
+(uncurry (parser-L10 '(lambda ([x Int]) (lambda ([y Int]) (lambda ([z Int]) (primapp + x y))))))
+(uncurry (parser-L10 '(lambda ([x Int]) (lambda ([y Int]) (lambda ([z Int]) (lambda ([w Int]) (primapp + x y)))))))
+
+;;Pruebas de symbol-table-var
+(symbol-table-var (parser-L11 '(begin (let ([x Int (const Int 3)]) (primapp + x x))
+									  (letfun ([y Int (const Int 4)]) (primapp + y y)))))
+(symbol-table-var (parser-L11 '(primapp + (const Int 1) (const Int 2))))
+(symbol-table-var (parser-L11 '(if (const Bool #f) (primapp + x x) (primapp + x x))))
+(symbol-table-var (parser-L11 '(letrec ([x Int (const Int 3)]) (let ([y Int (const Int 4)]) (primapp + x x)))))
+(symbol-table-var (parser-L11 '(list (let ([x Int (const Int 3)]) (primapp + x x)) (let ([y Int (const Int 4)]) (primapp + y y)))))
+(symbol-table-var (parser-L11 '((letrec ([x Int (const Int 3)]) (primapp + x x)) (let ([y Int (const Int 4)]) (primapp + y y)))))
